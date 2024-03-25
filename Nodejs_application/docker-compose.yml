@@ -1,0 +1,7 @@
+services:
+  nodejs_app:
+    build: ./
+    ports:
+     - 8070:3000
+    container_name: "node_application"
+    
