@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
 
   // Sending the response
-  res.end('Hemlo Dosto!\n');
+  res.end('Hemlo Friends!\n');
 });
 
 // Starting the server
