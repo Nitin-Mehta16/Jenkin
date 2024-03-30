@@ -1,6 +1,6 @@
 services:
   nodejs_app:
-    build: ./
+    image: mehtanitin/node_pipeline:latest
     ports:
      - 8070:3000
     container_name: "node_application"
