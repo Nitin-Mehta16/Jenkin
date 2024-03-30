@@ -5,7 +5,7 @@ pipeline{
                 steps{
                      echo "cloning the code"
                      
-                     git url: "https://github.com/nitin16503/Docker.git" , branch: "main"
+                     git url: "https://github.com/nitin16503/Jenkin.git" , branch: "main"
                 }
             }
             stage("build"){
