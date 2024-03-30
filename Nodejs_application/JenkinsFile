@@ -1,0 +1,40 @@
+pipeline{
+    agent any
+        stages{
+            stage("code"){
+                steps{
+                     echo "cloning the code"
+                     
+                     git url: "https://github.com/nitin16503/Docker.git" , branch: "main"
+                }
+            }
+            stage("build"){
+                steps{
+                    echo "building the docker image"
+                    // sh "sudo usermod -aG docker $USER"
+                    // sh "sudo reboot"
+                    sh  "docker build -t node_pipeline ./Nodejs_application"
+                }
+            }
+            stage("docker-hub"){
+                steps{
+                     echo "pushing image to dcoker hub"
+                     
+                     withCredentials([usernamePassword(credentialsId:"DockerHub", passwordVariable:"Password", usernameVariable:"Username")]){
+                        
+                        sh "docker login -u ${env.Username} -p ${env.Password} "
+                        sh "docker tag node_pipeline mehtanitin/node_pipeline:latest"
+                        sh "docker push mehtanitin/node_pipeline:latest"
+                     }
+                     
+                }
+            }
+            stage("Deploy"){
+                steps{
+                    echo "deploying container in EC2 server"
+                    sh "cd Nodejs_application && docker-compose down && docker-compose up -d"
+                }
+            }
+        }
+}
+
